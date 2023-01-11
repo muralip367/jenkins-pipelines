@@ -49,4 +49,35 @@ def List JustTest() {
         ])
     ])
 
-
+pipeline {
+    agent any
+    parameters {
+        booleanParam(name: 'Refresh',
+                    defaultValue: false,
+                    description: 'Read Jenkinsfile and exit.')
+    }
+    stages {
+        stage('Read Jenkinsfile') {
+            when {
+                expression { return parameters.Refresh == true }
+            }
+            steps {
+                echo("Ended pipeline early.")        
+            }
+        }
+        stage('Run Jenkinsfile') {
+            when {
+                expression { return parameters.Refresh == false }
+            }
+            stage('Build') {
+                // steps
+            }
+            stage('Test') {
+                // steps
+            }
+            stage('Deploy') {
+                // steps
+            }
+        }
+    }
+}
