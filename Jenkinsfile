@@ -1,3 +1,12 @@
+#!/usr/bin/env groovy
+
+// initialization
+env.STAGE_INPROCESS = 'loading'
+
+notesString = '''Building Docker image will assign the tag <b>dev_latest</b>, \
+besides the above selected ENVIRONMENT checkboxes; <i>qa_latest, stg_latest and prod_latest.</i></p> \
+'''
+
 node {
   wrap([$class: 'BuildUser']) {
     def currentUser1 = env.BUILD_USER_ID
@@ -20,22 +29,24 @@ def List JustTest() {
 
         def sids = roleMap.getSidsForRole("devops")
         if(sids != null && sids.contains(currentUser)) {
-            result.add('prod')
+            //result.add('qa,stg,prod')
+            result=["qa","stg","prod"]
             
         }
 
         sids = roleMap.getSidsForRole("developer")
         if (sids != null && sids.contains(currentUser)) {
-            result.add('qa')
+            result.add('dev')
 
         }
       }
       return result
 }
 
-
     properties([
         parameters([
-            choice(name: 'environment', choices: JustTest().join('\n'), description: 'Choice'),
+            choice(name: 'environment', choices: JustTest().join('\n'), description: 'Choice')
         ])
     ])
+
+
