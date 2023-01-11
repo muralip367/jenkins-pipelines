@@ -59,24 +59,32 @@ pipeline {
     stages {
         stage('Read Jenkinsfile') {
             when {
-                expression { return parameters.Refresh == true }
+                expression { return params.Refresh == true }
             }
             steps {
-                echo("Ended pipeline early.")        
+              echo("stop")
             }
         }
         stage('Run Jenkinsfile') {
             when {
-                expression { return parameters.Refresh == false }
+                expression { return params.Refresh == false }
             }
-            stage('Build') {
-                echo "build"
-            }
-            stage('Test') {
-                echo "test"
-            }
-            stage('Deploy') {
-                echo "deploy"
+            stages {
+              stage('Build') {
+                  steps {
+                    echo("build")
+                  }
+              }
+              stage('Test') {
+                  steps {
+                    echo("test")
+                  }
+              }
+              stage('Deploy') {
+                  steps {
+                    echo("deploy")
+                  }
+              }
             }
         }
     }
