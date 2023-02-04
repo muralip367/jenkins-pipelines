@@ -4,6 +4,6 @@
 
     properties([
         parameters([
-            choice(name: 'environment', choices: JustTest().join('\n'), description: 'Choice')
+            choice(name: 'ENVIRONMENT',choices: ['DEV', 'QA', 'PROD'],description: 'Choose the target environment')
         ])
     ])
