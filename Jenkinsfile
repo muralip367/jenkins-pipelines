@@ -4,7 +4,7 @@
 node {
     properties([
         parameters([
-            choice(name: 'environment', choices: load("$WORKSPACE/choice_parameter.groovy").JustTest().join('\n'), description: 'Choice')
+            choice(name: 'environment', choices: load("./choice_parameter.groovy").JustTest().join('\n'), description: 'Choice')
         ])
     ])
 }
