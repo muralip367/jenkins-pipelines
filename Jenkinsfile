@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-@Grab('./choice_parameter.groovy')
+#@Grab('./choice_parameter.groovy')
 
     properties([
         parameters([
